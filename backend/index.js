@@ -6,13 +6,15 @@ import cors from "cors";
 
 const app = express();
 
-app.use(
-    cors({
-        origin: "http://localhost:5000",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-type"],
-    })
-)
+app.use(cors());
+
+// app.use(
+//     cors({
+//         origin: "http://localhost:5000",
+//         methods: ["GET", "POST", "PUT", "DELETE"],
+//         allowedHeaders: ["Content-type"],
+//     })
+// )
 
 app.use(express.json());
 

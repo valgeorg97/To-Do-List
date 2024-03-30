@@ -1,11 +1,11 @@
 import React from 'react'
 
-const EditTask = () => {
+const DeleteTask = () => {
   return (
     <div>
-      
+      del
     </div>
   )
 }
 
-export default EditTask;
+export default DeleteTask;

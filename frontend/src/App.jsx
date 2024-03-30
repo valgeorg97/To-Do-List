@@ -1,10 +1,10 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
-import Home from './components/Home';
-import CreateTask from './components/CreateTask';
-import TaskDetails from './components/TaskDetail';
-import EditTask from './components/EditTask';
-import DeleteTask from './components/DeleteTask';
+import Home from './pages/Home.jsx';
+import CreateTask from './pages/CreateTask.jsx';
+import TaskDetails from './pages/TaskDetails.jsx';
+import EditTask from './pages/EditTask.jsx';
+import DeleteTask from './pages/DeleteTask.jsx';
 
 
 const App = () => {
@@ -19,4 +19,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
