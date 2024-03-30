@@ -44,7 +44,7 @@ const Home = () => {
                 <span className="text-2xl font-bold mr-2">{index + 1}.</span>
                 {task.title}
               </div>
-              <div className="flex">
+              <div className="flex gap-2">
               <Link to={`/tasks/details/${task._id}`} className="mr-2">
                   <BsInfoCircle className="text-3xl text-green-800 hover:scale-110 cursor-pointer" />
                 </Link>
