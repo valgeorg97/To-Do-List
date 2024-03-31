@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import BackButton from '../components/BackButtons';
+import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 
 const TaskDetails = () => {
