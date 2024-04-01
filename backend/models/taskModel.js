@@ -13,7 +13,7 @@ const taskSchema = mongoose.Schema(
         status: {
             type: String,
             enum: ['pending', 'completed'],
-            default: 'Pending'
+            default: 'pending'
         }
     },
     {
