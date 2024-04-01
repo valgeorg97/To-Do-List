@@ -57,7 +57,9 @@ const Home = () => {
           </Link>
         </div>
         {loading ? (
+          <div className="flex justify-center items-center">
           <Spinner />
+        </div>
         ) : (
           <ul className="divide-y divide-gray-300">
             {tasks.map((task, index) => (
