@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
-import TaskDetailsModal from './TaskDetailsModal';
-
+import TaskDetailsModal from '../components/TaskDetailsModal';
+import DeleteTaskModal from '../components/DeleteTaskModal'; 
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [deletedTask, setDeletedTask] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -25,7 +26,7 @@ const Home = () => {
         console.log(err);
         setLoading(false);
       });
-  }, []);
+  }, [deletedTask]);
 
   const handleCheckboxChange = async (taskId) => {
     const taskToUpdate = tasks.find((task) => task._id === taskId);
@@ -53,6 +54,14 @@ const Home = () => {
 
   const closeTaskDetailsModal = () => {
     setSelectedTask(null);
+  };
+
+  const openDeleteModal = (task) => {
+    setDeletedTask(task)
+  };
+
+  const closeDeleteModal = () => {
+    setDeletedTask(null);
   };
 
   return (
@@ -89,15 +98,16 @@ const Home = () => {
                 </div>
                 <div className="flex gap-2">
                   <BsInfoCircle
-                    className="text-3xl text-gray-500 hover:text-gray-700 cursor-pointer"
+                    className="text-3xl text-gray-500 hover:text-gray-700 cursor-pointer mr-2"
                     onClick={() => openTaskDetailsModal(task)}
                   />
                   <Link to={`/tasks/edit/${task._id}`} className="mr-2">
                     <AiOutlineEdit className="text-3xl text-yellow-500 hover:text-yellow-600 cursor-pointer" />
                   </Link>
-                  <Link to={`/tasks/delete/${task._id}`} className="mr-2">
-                    <MdOutlineDelete className="text-3xl text-red-500 hover:text-red-700 cursor-pointer" />
-                  </Link>
+                  <MdOutlineDelete
+                    className="text-3xl text-red-500 hover:text-red-700 cursor-pointer"
+                    onClick={() => openDeleteModal(task)} 
+                  />
                 </div>
               </li>
             ))}
@@ -107,7 +117,11 @@ const Home = () => {
       {selectedTask && (
         <TaskDetailsModal task={selectedTask} onClose={closeTaskDetailsModal} />
       )}
+      {deletedTask && (
+        <DeleteTaskModal task={deletedTask} onClose={closeDeleteModal} /> 
+      )}
     </div>
   );
 };
+
 export default Home;
