@@ -68,11 +68,10 @@ const EditTask = () => {
           </div>
           <div className='my-4'>
             <label className='text-xl mr-4 text-gray-500'>Description</label>
-            <input
-              type='text'
+            <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className='border-2 rounded-md border-gray-500 px-4 py-2 w-full'
+              className='border-2 rounded-md border-gray-500 px-4 py-2 w-full resize-y'
             />
           </div>
           <button className='justify-center p-2 w-2/6 bg-sky-300 m-auto my-6 rounded-sm
