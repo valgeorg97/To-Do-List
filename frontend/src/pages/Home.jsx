@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import { LuClipboardSignature } from "react-icons/lu";
 import TaskDetailsModal from '../components/TaskDetailsModal';
 import DeleteTaskModal from '../components/DeleteTaskModal'; 
+
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -77,51 +79,59 @@ const Home = () => {
           <div className="flex justify-center items-center">
             <Spinner />
           </div>
+        ) : tasks.length === 0 ? (
+          <div className="flex justify-center items-center text-gray-600 mt-14 font-style: italic text-2xl">
+            <p className="flex items-center">
+              No tasks added yet. Why not add one? <span className="ml-2"><LuClipboardSignature className='text-3xl'/></span>
+            </p>
+          </div>
         ) : (
-          <ul className="divide-y divide-gray-300">
-            {tasks.map((task, index) => (
-              <li
-                key={task._id}
-                className={`task-item p-4 flex justify-between items-center border border-gray-200 rounded-lg shadow-md mt-1 hover:cursor-pointer ${
-                  task.status === 'completed' ? 'bg-green-300' : ''
-                }`}
-              >
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="mr-2 h-5 w-5 accent-green-500 border-gray-300 rounded-md hover:cursor-pointer"
-                    onChange={() => handleCheckboxChange(task._id)}
-                    checked={task.status === 'completed'}
-                  />
-                  <span className="text-2xl font-bold mr-2">{index + 1}.</span>
-                  <span className="text-2xl">{task.title}</span>
-                </div>
-                <div className="flex gap-2">
-                  <BsInfoCircle
-                    className="text-3xl text-gray-500 hover:text-gray-700 cursor-pointer mr-2"
-                    onClick={() => openTaskDetailsModal(task)}
-                  />
-                  <Link to={`/tasks/edit/${task._id}`} className="mr-2">
-                    <AiOutlineEdit className="text-3xl text-yellow-500 hover:text-yellow-600 cursor-pointer" />
-                  </Link>
-                  <MdOutlineDelete
-                    className="text-3xl text-red-500 hover:text-red-700 cursor-pointer"
-                    onClick={() => openDeleteModal(task)} 
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="overflow-y-auto" style={{ maxHeight: 'calc(100% - 140px)' }}>
+            <ul className="divide-y divide-gray-300 py-1">
+              {tasks.map((task, index) => (
+                <li
+                  key={task._id}
+                  className={`task-item p-4 flex justify-between items-center border border-gray-200 rounded-lg shadow-md mt-1 hover:cursor-pointer ${
+                    task.status === 'completed' ? 'bg-green-300' : ''
+                  }`}
+                >
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="mr-2 h-5 w-5 accent-green-500 border-gray-300 rounded-md hover:cursor-pointer"
+                      onChange={() => handleCheckboxChange(task._id)}
+                      checked={task.status === 'completed'}
+                    />
+                    <span className="text-2xl font-bold mr-2">{index + 1}.</span>
+                    <span className="text-2xl">{task.title}</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <BsInfoCircle
+                      className="text-3xl text-gray-500 hover:text-gray-700 cursor-pointer mr-2"
+                      onClick={() => openTaskDetailsModal(task)}
+                    />
+                    <Link to={`/tasks/edit/${task._id}`} className="mr-2">
+                      <AiOutlineEdit className="text-3xl text-yellow-500 hover:text-yellow-600 cursor-pointer" />
+                    </Link>
+                    <MdOutlineDelete
+                      className="text-3xl text-red-500 hover:text-red-700 cursor-pointer"
+                      onClick={() => openDeleteModal(task)}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
       {selectedTask && (
         <TaskDetailsModal task={selectedTask} onClose={closeTaskDetailsModal} />
       )}
       {deletedTask && (
-        <DeleteTaskModal task={deletedTask} onClose={closeDeleteModal} /> 
+        <DeleteTaskModal task={deletedTask} onClose={closeDeleteModal} />
       )}
     </div>
   );
-};
+      } 
 
 export default Home;

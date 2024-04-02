@@ -46,6 +46,7 @@ const CreateTask = () => {
             <input
               type='text'
               value={title}
+              maxLength={25}
               onChange={(e) => setTitle(e.target.value)}
               className='border-2 rounded-md border-gray-500 px-4 py-2 w-full'
             />
@@ -54,6 +55,7 @@ const CreateTask = () => {
             <label className='text-xl mr-4 text-gray-500'>Description</label>
             <textarea
               value={description}
+              maxLength={125}
               onChange={(e) => setDescription(e.target.value)}
               className='border-2 rounded-md border-gray-500 px-4 py-2 w-full resize-y'
             />
