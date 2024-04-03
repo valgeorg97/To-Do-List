@@ -3,6 +3,7 @@ import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const EditTask = () => {
   const [title, setTitle] = useState('');
@@ -11,6 +12,7 @@ const EditTask = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
@@ -38,11 +40,24 @@ const EditTask = () => {
       .put(`http://localhost:5000/tasks/${id}`, data)
       .then(() => {
         setLoading(false);
+        enqueueSnackbar('Task updated successfully!', {
+          variant: 'success',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'center',
+          },
+        });
         navigate('/')
       })
       .catch((err) => {
         setLoading(false);
-        alert('Error occurred, please check the console!');
+        enqueueSnackbar('Error updating task!', {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'center',
+          },
+        });
         console.log(err);
       });
   }

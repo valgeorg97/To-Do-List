@@ -1,18 +1,33 @@
 import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 const DeleteTaskModal = ({ task, onClose }) => {
+    
+    const { enqueueSnackbar } = useSnackbar();
   
     const handleDeleteTask = () => {
       axios
         .delete(`http://localhost:5000/tasks/${task._id}`)
         .then(() => {
-        //   alert('Task Deleted successfully!');
+            enqueueSnackbar('Task deleted successfully!', {
+                variant: 'success',
+                anchorOrigin: {
+                  vertical: 'top',
+                  horizontal: 'center',
+                },
+              });
           onClose();
         })
         .catch((error) => {
-          alert('Error occurred, please check the console!');
+            enqueueSnackbar('Error deleting task!', {
+                variant: 'error',
+                anchorOrigin: {
+                  vertical: 'top',
+                  horizontal: 'center',
+                },
+              });
           console.log(error);
         });
     };

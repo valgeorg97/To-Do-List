@@ -3,12 +3,14 @@ import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const CreateTask = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSaveTask = () => {
     const data = {
@@ -21,11 +23,24 @@ const CreateTask = () => {
       .post('http://localhost:5000/tasks', data)
       .then(() =>{
         setLoading(false);
+        enqueueSnackbar('Task created successfully!', {
+          variant: 'success',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'center',
+          },
+        });
         navigate('/')
       })
       .catch((err) => {
         setLoading(false);
-        alert('Error occurred, please check the console!');
+        enqueueSnackbar('Error creating task!', {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'center',
+          },
+        });
         console.log(err);
       });
   }
