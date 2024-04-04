@@ -46,7 +46,7 @@ const Home = () => {
       await axios.put(`http://localhost:5000/tasks/${taskId}`, updatedTask);
       setLoading(false);
       setTasks((prevTasks) =>
-        prevTasks.map((task) => (task._id === taskId ? updatedTask : task)),
+        prevTasks.map((task) => (task._id === taskId ? updatedTask : task))
       );
     } catch (error) {
       setLoading(false);
@@ -72,13 +72,13 @@ const Home = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
-      <div className="p-8 w-1/3 bg-white rounded-lg shadow-lg h-5/6">
+      <div className="p-8 lg:w-1/3 md:w-1/2 sm:w-full bg-white rounded-lg shadow-lg h-5/6">
         <div className="flex justify-between items-center">
-          <h1 className="text-3xl my-8 font-semibold text-black">
+          <h1 className="lg:text-3xl md:text-xl my-8 font-semibold text-black">
             What's the plan for today?
           </h1>
           <Link to="/tasks/create">
-            <MdOutlineAddBox className="text-sky-800 text-4xl hover:scale-110" />
+            <MdOutlineAddBox className="text-sky-800 lg:text-4xl md:text-2xl hover:scale-110" />
           </Link>
         </div>
         {loading ? (
@@ -86,11 +86,11 @@ const Home = () => {
             <Spinner />
           </div>
         ) : tasks.length === 0 ? (
-          <div className="flex justify-center items-center text-gray-600 mt-14 font-style: italic text-2xl">
+          <div className="flex justify-center items-center text-gray-600 mt-14 font-style:italic lg:text-2xl md:text-xl">
             <p className="flex items-center">
               No tasks added yet. Why not add one?{" "}
               <span className="ml-2">
-                <LuClipboardSignature className="text-3xl" />
+                <LuClipboardSignature className="lg:text-3xl md:text-xl" />
               </span>
             </p>
           </div>
@@ -114,21 +114,21 @@ const Home = () => {
                       onChange={() => handleCheckboxChange(task._id)}
                       checked={task.status === "completed"}
                     />
-                    <span className="text-2xl font-bold mr-2">
+                    <span className="lg:text-2xl md:text-xl font-bold mr-2">
                       {index + 1}.
                     </span>
-                    <span className="text-2xl">{task.title}</span>
+                    <span className="lg:text-2xl md:text-xl max-w-[10ch] lg:max-w-[20ch] overflow-hidden overflow-ellipsis whitespace-nowrap">{task.title}</span>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 lg:mr-4 md:mr-2 sm:mr-1 ml-1">
                     <BsInfoCircle
-                      className="text-3xl text-gray-500 hover:text-gray-700 cursor-pointer mr-2"
+                      className="lg:text-3xl md:text-xl text-gray-500 hover:text-gray-700 cursor-pointer"
                       onClick={() => openTaskDetailsModal(task)}
                     />
-                    <Link to={`/tasks/edit/${task._id}`} className="mr-2">
-                      <AiOutlineEdit className="text-3xl text-yellow-500 hover:text-yellow-600 cursor-pointer" />
+                    <Link to={`/tasks/edit/${task._id}`}>
+                      <AiOutlineEdit className="lg:text-3xl md:text-xl text-yellow-500 hover:text-yellow-600 cursor-pointer" />
                     </Link>
                     <MdOutlineDelete
-                      className="text-3xl text-red-500 hover:text-red-700 cursor-pointer"
+                      className="lg:text-3xl md:text-xl text-red-500 hover:text-red-700 cursor-pointer"
                       onClick={() => openDeleteModal(task)}
                     />
                   </div>
