@@ -67,7 +67,7 @@ const EditTask = () => {
     <div className="flex justify-center items-start pt-20 min-h-screen bg-gray-200">
       <div className="p-4">
         {loading ? <Spinner /> : ""}
-        <div className="flex flex-col shadow-lg w-[600px] p-4 mx-auto bg-white rounded-lg">
+        <div className="flex flex-col w-full lg:w-[600px] p-4 mx-auto bg-white rounded-lg shadow-lg">
           <div className="items-center mb-4">
             <BackButton />
             <div className="text-center">
