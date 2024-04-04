@@ -8,12 +8,14 @@ import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
 import { LuClipboardSignature } from "react-icons/lu";
 import TaskDetailsModal from "../components/TaskDetailsModal";
 import DeleteTaskModal from "../components/DeleteTaskModal";
+import { useSnackbar } from "notistack";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [deletedTask, setDeletedTask] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
@@ -35,12 +37,12 @@ const Home = () => {
       console.error("Task not found");
       return;
     }
-
+  
     const updatedTask = {
       ...taskToUpdate,
       status: taskToUpdate.status === "completed" ? "pending" : "completed",
     };
-
+  
     try {
       setLoading(true);
       await axios.put(`http://localhost:5000/tasks/${taskId}`, updatedTask);
@@ -48,6 +50,17 @@ const Home = () => {
       setTasks((prevTasks) =>
         prevTasks.map((task) => (task._id === taskId ? updatedTask : task))
       );
+  
+      // Enqueue snackbar notification when task is completed
+      if (updatedTask.status === 'completed') {
+        enqueueSnackbar("Congratulations! Task Completed!", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+      }
     } catch (error) {
       setLoading(false);
       console.error("Error occurred while updating task status:", error);
