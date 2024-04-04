@@ -1,5 +1,4 @@
 import React from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 
@@ -35,26 +34,22 @@ const DeleteTaskModal = ({ task, onClose }) => {
     <div className="fixed bg-black bg-opacity-60 top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">
       <div
         onClick={(event) => event.stopPropagation()}
-        className="w-[600px] max-w-full h-[200px] bg-white rounded-xl p-4 flex flex-col relative"
+        className="md:max-w-[400px] lg:max-w-[500px] md:w-auto md:h-auto h-[auto] bg-white rounded-xl p-2 md:p-4 flex flex-col relative"
       >
-        <AiOutlineClose
-          className="absolute right-6 top-6 text-3xl text-red-600 cursor-pointer"
-          onClick={onClose}
-        />
-        <div className="my-4">
-          <h3 className="text-xl">
-            Are you sure you want to delete this task?
+        <div className="my-1 md:my-2">
+          <h3 className="text-sm md:text-base text-center md:text-left">
+            Are you sure you want <br className="md:hidden" /> to delete this task?
           </h3>
         </div>
-        <div className="flex justify-between">
+        <div className="flex flex-col md:flex-row justify-center md:justify-evenly">
           <button
-            className="p-3 bg-red-600 text-white m-8 flex-grow rounded-md"
+            className="p-1 md:p-2 bg-red-600 text-white m-1 md:m-2 w-full md:w-auto rounded-md text-xs md:text-sm"
             onClick={handleDeleteTask}
           >
             Yes, Delete it
           </button>
           <button
-            className="p-3 bg-gray-400 text-white m-8 flex-grow rounded-md"
+            className="p-1 md:p-2 bg-gray-400 text-white m-1 md:m-2 w-full md:w-auto rounded-md text-xs md:text-sm"
             onClick={onClose}
           >
             Cancel
