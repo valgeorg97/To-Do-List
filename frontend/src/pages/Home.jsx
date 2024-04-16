@@ -9,6 +9,7 @@ import { LuClipboardSignature } from "react-icons/lu";
 import TaskDetailsModal from "../components/TaskDetailsModal";
 import DeleteTaskModal from "../components/DeleteTaskModal";
 import { useSnackbar } from "notistack";
+import { API_BASE_URL } from "../constants/API_BASE_URL";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -20,7 +21,7 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5000/tasks")
+      .get(`${API_BASE_URL}/tasks`)
       .then((res) => {
         setTasks(res.data.data);
         setLoading(false);
@@ -45,13 +46,12 @@ const Home = () => {
   
     try {
       setLoading(true);
-      await axios.put(`http://localhost:5000/tasks/${taskId}`, updatedTask);
+      await axios.put(`${API_BASE_URL}/tasks/${taskId}`, updatedTask);
       setLoading(false);
       setTasks((prevTasks) =>
         prevTasks.map((task) => (task._id === taskId ? updatedTask : task))
       );
   
-      // Enqueue snackbar notification when task is completed
       if (updatedTask.status === 'completed') {
         enqueueSnackbar("Congratulations! Task Completed!", {
           variant: "success",

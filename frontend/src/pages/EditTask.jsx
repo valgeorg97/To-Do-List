@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { API_BASE_URL } from "../constants/API_BASE_URL";
 
 const EditTask = () => {
   const [title, setTitle] = useState("");
@@ -17,7 +18,7 @@ const EditTask = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/tasks/${id}`)
+      .get(`${API_BASE_URL}/tasks/${id}`)
       .then((res) => {
         setTitle(res.data.title);
         setDescription(res.data.description);
@@ -39,7 +40,7 @@ const EditTask = () => {
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5000/tasks/${id}`, data)
+      .put(`${API_BASE_URL}/tasks/${id}`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Task updated successfully!", {

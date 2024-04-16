@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { API_BASE_URL } from "../constants/API_BASE_URL";
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
@@ -20,7 +21,7 @@ const CreateTask = () => {
     };
     setLoading(true);
     axios
-      .post("http://localhost:5000/tasks", data)
+      .post(`${API_BASE_URL}/tasks`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Task created successfully!", {

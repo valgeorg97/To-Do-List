@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { useSnackbar } from "notistack";
+import { API_BASE_URL } from "../constants/API_BASE_URL";
 
 const DeleteTaskModal = ({ task, onClose }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const handleDeleteTask = () => {
     axios
-      .delete(`http://localhost:5000/tasks/${task._id}`)
+      .delete(`${API_BASE_URL}/tasks/${task._id}`)
       .then(() => {
         enqueueSnackbar("Task deleted successfully!", {
           variant: "success",
